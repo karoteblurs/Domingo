@@ -1,20 +1,19 @@
+import React, { useState } from "react";
+import * as Font from "expo-font";
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import AppNavigator from './frontroutes/appnav';
+import { createAppContainer } from 'react-navigation';
+
+
+const AppContainer = createAppContainer(AppNavigator)
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+    <AppContainer 
+    
+    
+    />
+  );
+  }
