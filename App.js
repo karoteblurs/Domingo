@@ -1,19 +1,17 @@
 import React, { useState } from "react";
-import * as Font from "expo-font";
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import AppNavigator from './frontroutes/appnav';
 import { createAppContainer } from 'react-navigation';
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
 
 
 const AppContainer = createAppContainer(AppNavigator)
 
 export default function App() {
+  
   return (
-
-    <AppContainer 
-    
-    
-    />
+    <Provider store={store}>
+      <AppContainer />
+    </Provider>
   );
   }

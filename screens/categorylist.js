@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, View, Text, Button, SafeAreaView, FlatList } from "react-native";
+
+import { useSelector } from 'react-redux';
 
 
 const DATA = [
@@ -15,6 +17,13 @@ const Item = () => {
 }
 
 const Categorylist = ( {navigation}) => {
+
+    const placesWhatever = useSelector(state => state.places);
+
+    useEffect(() => {
+        console.log('places in categroy : ', places)
+    }, [places])
+
     return ( 
 
         <SafeAreaView styles = {styles.container}>

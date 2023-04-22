@@ -11,20 +11,8 @@ const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = 0.02;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-export default function Map({location}) {
-  const [initialRegion, setInitialRegion] = useState(null);
-
-  useEffect(() => {
-    if (location) {
-
-  setInitialRegion ({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-        latitudeDelta: LATITUDE_DELTA,
-        longitudeDelta: LONGITUDE_DELTA,
-  });
-}
-  }, [location])
+export default function Map({ initialRegion }) {
+ 
   if (!initialRegion) {
     return null;
     //create a state for loading
@@ -37,7 +25,7 @@ export default function Map({location}) {
       <View style={styles.searchContainer}>
         <GooglePlacesAutocomplete
           styles={{ textInput: styles.input }}
-          placeholder="Search"
+          placeholder="Looking for something specific?"
           onPress={(data, details = null) => {
             console.log(data, details);
           }}
