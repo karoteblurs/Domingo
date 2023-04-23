@@ -6,10 +6,6 @@ export default function PlaceTypesList({ navigation }) {
   const placeTypes = useSelector(state => state.placeTypes);
   const places = useSelector(state => state.places);
 
-  if (!placeTypes) {
-    return <Text style = {{textAlign: "center"}}>Loading...</Text>
-  }
-
   // Use a Set to keep track of unique place types
   const uniquePlaceTypes = new Set();
 
@@ -33,7 +29,7 @@ export default function PlaceTypesList({ navigation }) {
         <Text>{item}</Text>
         <Button
           title={`View ${filteredPlaces.length} Places`}
-          onPress={() => navigation.navigate('PlaceList', { places: filteredPlaces })}
+          onPress={() => navigation.navigate('EntryDetails', { places: filteredPlaces })}
         />
       </View>
     );

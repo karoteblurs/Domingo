@@ -10,12 +10,6 @@ const DATA = [
     {},
 ]
 
-const Item = () => {
-    return (
-        console.log("hi")
-    )
-}
-
 const Categorylist = ( {navigation}) => {
 
     const placesWhatever = useSelector(state => state.places);

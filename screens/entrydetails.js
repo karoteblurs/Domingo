@@ -1,10 +1,21 @@
 import React from "react";
-import { StyleSheet, View, Text, Button } from "react-native";
+import { View, Text, FlatList } from "react-native";
+import { useSelector } from "react-redux";
 
-const Entrydetails = () => {
-    return (
-        <View><Text>Entry Details</Text></View>
-    )
+export default function PlaceList({ route }) {
+  const { places } = route.params;
+
+  return (
+    <View>
+      <FlatList
+        data={places}
+        renderItem={({ item }) => (
+          <View>
+            <Text>{item.name}</Text>
+          </View>
+        )}
+        keyExtractor={item => item.place_id}
+      />
+    </View>
+  );
 }
-
-export default Entrydetails;

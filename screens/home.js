@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Button, Modal, FlatList, SafeAreaView, } from "react-native";
+import { View, Text, Button, Modal, FlatList, SafeAreaView, ActivityIndicator } from "react-native";
 import Map from "./modals/map";
 import * as Location from 'expo-location';
 import { useDispatch } from 'react-redux';
@@ -20,6 +20,7 @@ export default function Home({ navigation }) {
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
     const [initialRegion, setInitialRegion] = useState(null);
+    const [isLoading, setIsLoading] = useState(true)
     
     const dispatch = useDispatch();
     
@@ -71,6 +72,7 @@ export default function Home({ navigation }) {
         console.log("types:", types); // Log types to check that it's being populated correctly
       }
       dispatch(setPlaceTypes(types))
+      setIsLoading(false);
       console.log("these are the types:", types)
     })
     .catch((error) => {
@@ -83,20 +85,26 @@ export default function Home({ navigation }) {
 
 
     return ( 
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, backgroundColor: "rgb(144,238,144)", }}>
           <View style={{ flex: 1 }}>
-            <Text style= {{textAlign: "center"}}>Search by Category</Text>
+            <Text style= {{textAlign: "center", fontSize: 24, fontWeight: "bold", marginBottom: 30,marginTop: 30}}>Search by Category</Text>
             <View>
               <PlaceTypesList navigation={navigation} />
             </View>
           </View>
-          <SafeAreaView style={{ position: "absolute", bottom: 0 }}>
-            <Button title="Search in the Map" onPress={() => setIsMapModalOpen(true)} />
-          </SafeAreaView>
+          <SafeAreaView style={{ position: "absolute", bottom: 0, width: "100%", }}>
+            <Button title="Search in the Map" onPress={() => setIsMapModalOpen(true)}/>
           <Modal visible={isMapModalOpen}>
             <Map location={location} initialRegion={initialRegion} style={{ flex: 1 }} />
             <Button title="Close Map" onPress={() => setIsMapModalOpen(false)} />
           </Modal>
+          </SafeAreaView>
+          {isLoading && (
+      <View style={{ position: "absolute", top: 0, bottom: 0, left: 0, right: 0, backgroundColor: "rgba(255, 255, 255, 0.5)", justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="black" />
+        <Text style={{ marginTop: 10 }}>Finding places near you...</Text>
+      </View>
+    )}
         </View>
       );
 }
