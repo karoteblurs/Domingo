@@ -68,13 +68,13 @@ export default function Home({ navigation, route }) {
           place_id: place.place_id,
           types: placeTypes,
         })
-        console.log("place id:", place.place_id, "place types:", placeTypes)
-        console.log("placeTypes:", placeTypes); // Log placeTypes to check that it's being returned correctly
-        console.log("types:", types); // Log types to check that it's being populated correctly
+        //console.log("place id:", place.place_id, "place types:", placeTypes)
+        //console.log("placeTypes:", placeTypes); // Log placeTypes to check that it's being returned correctly
+        //console.log("types:", types); // Log types to check that it's being populated correctly
       }
       dispatch(setPlaceTypes(types))
       setIsLoading(false);
-      console.log("these are the types:", types)
+    //   console.log("these are the types:", types)
     })
     .catch((error) => {
       console.log("here", error)

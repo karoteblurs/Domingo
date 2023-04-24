@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from "react-native";
 import { useSelector } from 'react-redux';
 
-export default function PlaceTypesList({ navigation, route }) {
+export default function PlaceTypesList({ navigation }) {
   const placeTypes = useSelector(state => state.placeTypes);
   const places = useSelector(state => state.places);
 
@@ -59,6 +59,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 2,
+    elevation: 7,
+    transform: [
+      { perspective: 1000 },
+      { rotateX: '-1deg' },
+      { rotateY: '-0.2deg' },
+    ],
   },
   itemText: {
     color: 'white',

@@ -1,7 +1,9 @@
 import axios from "axios";
 import { GOOGLE_API_KEY } from "../environments";
 
+
 export const getPlacesData = async (location) => {
+
     try {
       const response = await axios.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json', {
         params: {
@@ -9,7 +11,7 @@ export const getPlacesData = async (location) => {
           radius: 5000, // radius in meters
           key: GOOGLE_API_KEY,
           openNow: true,
-          
+
           //add type?
         },
       });
