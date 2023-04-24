@@ -48,32 +48,36 @@ export default function Home({ navigation, route }) {
     }
     useEffect(() => {
       if (location) {
-  
+
     setInitialRegion ({
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
           latitudeDelta: LATITUDE_DELTA,
           longitudeDelta: LONGITUDE_DELTA,
     });
-  
-    getPlacesData(location)
+    const types = ["restaurant", "bar", "supermarket", "pharmacy", "cafe",] //"store", "museum", "night_club","shopping_mall","shoe_store", "zoo", "gym", "drugstore", "convenience_store"]
+    getPlacesData(location, types)
     .then(async (data) => {
-      dispatch(setPlaces(data));
-  
-      const types = [];
-      for (const place of data) {
-        
-        const placeTypes = await getPlaceTypes(place.place_id);
-        types.push({
-          place_id: place.place_id,
-          types: placeTypes,
-        })
-        //console.log("place id:", place.place_id, "place types:", placeTypes)
-        //console.log("placeTypes:", placeTypes); // Log placeTypes to check that it's being returned correctly
-        //console.log("types:", types); // Log types to check that it's being populated correctly
-      }
-      dispatch(setPlaceTypes(types))
-      setIsLoading(false);
+
+        const types = [];
+        const places = [];
+        for (let t of data) {
+            places.push(...t)
+            for (const place of t) {
+                
+                const placeTypes = await getPlaceTypes(place.place_id);
+                types.push({
+                    place_id: place.place_id,
+                    types: placeTypes,
+                })
+                //console.log("place id:", place.place_id, "place types:", placeTypes)
+                //console.log("placeTypes:", placeTypes); // Log placeTypes to check that it's being returned correctly
+                //console.log("types:", types); // Log types to check that it's being populated correctly
+            }
+        }
+    dispatch(setPlaces(places));
+    dispatch(setPlaceTypes(types))
+    setIsLoading(false);
     //   console.log("these are the types:", types)
     })
     .catch((error) => {

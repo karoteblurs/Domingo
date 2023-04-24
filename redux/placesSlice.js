@@ -12,11 +12,11 @@ export const placesSlice = createSlice({
     initialState: initialPlacesState,
     reducers: {
         setPlaces: (state, action) => {
-            console.log('data in redux:', action.payload)
+            //console.log('data in redux:', action.payload)
             state.places = action.payload;
         },
         setPlaceTypes: (state, action) => {
-            console.log("place types in redux:", action.payload)
+            //console.log("place types in redux:", action.payload)
             state.placeTypes = action.payload;
         },
     }

@@ -6,9 +6,8 @@ import { GOOGLE_API_KEY } from "../environments";
 export default function Categorylist({ navigation }) {
 
     const [isBackgroundLoaded, setIsBackgroundLoaded] = useState(false);
-  console.log(navigation.state.params.type)
+  console.log("THIS", navigation.state.params.type)
   const { type } = navigation.state.params;
-  console.log("TYPE", type)
   const places = useSelector(state => state.places);
 
   // Filter places based on the selected type
@@ -16,8 +15,16 @@ export default function Categorylist({ navigation }) {
     place.types.includes(type)
   );
 
+  const filteredUniquePlaces = filteredPlaces.reduce((acc, current) => {
+    const x = acc.find(item => item.name === current.name);
+    if (!x) {
+      return acc.concat([current]);
+    } else {
+      return acc;
+    }
+  }, []);
+
   const renderItem = ({ item }) => {
-    console.log("ITEM", item)
     const photo = item.photos && item.photos.length > 0 ? item.photos[0].photo_reference : null;
   const photoUrl = photo ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo}&key=${GOOGLE_API_KEY}` : null;
     return (
@@ -38,7 +45,7 @@ export default function Categorylist({ navigation }) {
     <ImageBackground source={{ uri: 'https://wallpapercave.com/wp/wp8798204.png' }} style={styles.background} onLoad={onBackgroundLoad}>
       {isBackgroundLoaded &&
       <FlatList
-        data={filteredPlaces}
+        data={filteredUniquePlaces}
         renderItem={renderItem}
         keyExtractor={item => item.place_id}
       />

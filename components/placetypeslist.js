@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState} from "react";
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from "react-native";
 import { useSelector } from 'react-redux';
 
@@ -17,16 +17,17 @@ export default function PlaceTypesList({ navigation }) {
 
   // Convert Set back to an array for rendering
   const uniquePlaceTypesArray = Array.from(uniquePlaceTypes);
-
   const renderItem = ({ item }) => {
+    const itemName = item.replace(/_/g, ' ');
     // Get places that match the selected category
-    const filteredPlaces = places.filter(place =>
-      place.types.includes(item)
-    );
+      const filteredPlaces = places.filter(place => {
+        return place.types.includes(item)})
 
+        //console.log(filteredPlaces)
+    
     return (
       <View style={styles.itemContainer}>
-        <Text style={styles.itemText}>{item}</Text>
+        <Text style={styles.itemText}>{itemName}</Text>
         <TouchableOpacity
           style={styles.buttonContainer}
           activeOpacity={0.8}
