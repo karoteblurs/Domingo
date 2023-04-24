@@ -1,43 +1,34 @@
-import React, { useEffect } from "react";
-import { StyleSheet, View, Text, Button, SafeAreaView, FlatList } from "react-native";
-
+import React from "react";
+import { View, Text, FlatList } from "react-native";
 import { useSelector } from 'react-redux';
+import { useRoute } from "@react-navigation/native"
 
+export default function Categorylist() {
+  const route = useRoute();
+  const type = route.params?.type
+  const places = useSelector(state => state.places);
 
-const DATA = [
-    {},
-    {},
-    {},
-]
+  // Filter places based on the selected type
+  const filteredPlaces = places.filter(place =>
+    place.types.includes(type)
+  );
 
-const Categorylist = ( {navigation}) => {
+  const renderItem = ({ item }) => {
+    return (
+      <View>
+        <Text>{item.name}</Text>
+        <Text>{item.vicinity}</Text>
+      </View>
+    );
+  };
 
-    const placesWhatever = useSelector(state => state.places);
-
-    useEffect(() => {
-        console.log('places in categroy : ', places)
-    }, [places])
-
-    return ( 
-
-        <SafeAreaView styles = {styles.container}>
-        <View><Text>Category List</Text>
-        <FlatList
-        data = {DATA}
-        />
-        <Button title = "View entry" 
-        onPress = {() => navigation.navigate("Entrydetails")}/>
-        
-        </View>
-        </SafeAreaView>
-    )
+  return (
+    <View style={{ height: '90%', overflow: 'scroll' }}>
+      <FlatList
+        data={filteredPlaces}
+        renderItem={renderItem}
+        keyExtractor={item => item.place_id}
+      />
+    </View>
+  );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    }
-})
-
-
-export default Categorylist;

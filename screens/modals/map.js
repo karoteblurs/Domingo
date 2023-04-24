@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Dimensions } from 'react-native';
+import { StyleSheet, View, Dimensions, Button } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { GOOGLE_API_KEY } from "../../environments"
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
@@ -11,7 +11,7 @@ const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = 0.02;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-export default function Map({ initialRegion }) {
+export default function Map({ initialRegion, onClose }) {
  
   if (!initialRegion) {
     return null;
@@ -35,6 +35,10 @@ export default function Map({ initialRegion }) {
           }}
         />
       </View>
+      <View style={{ flex: 1 }}>
+      <MapView style={{ flex: 1 }} initialRegion={initialRegion} />
+      <Button title="Close" onPress={onClose} />
+    </View>
     </View>
   );
 }

@@ -7,6 +7,7 @@ import { Dimensions } from "react-native";
 import { setPlaceTypes, setPlaces } from "../redux/placesSlice";
 import { getPlacesData, getPlaceTypes } from "../api/index.js";
 import PlaceTypesList from "../components/placetypeslist";
+import ThemedButton from "react-native-really-awesome-button"
 
 const { width, height } = Dimensions.get('window');
 
@@ -92,11 +93,13 @@ export default function Home({ navigation }) {
               <PlaceTypesList navigation={navigation} />
             </View>
           </View>
-          <SafeAreaView style={{ position: "absolute", bottom: 0, width: "100%", }}>
-            <Button title="Search in the Map" onPress={() => setIsMapModalOpen(true)}/>
+          <SafeAreaView style={{ position: "absolute", bottom: 0, width: "100%", alignItems: "center",}}>
+            <ThemedButton type= "secondary" onPress={() => setIsMapModalOpen(true)}>Search in the Map</ThemedButton>
           <Modal visible={isMapModalOpen}>
-            <Map location={location} initialRegion={initialRegion} style={{ flex: 1 }} />
-            <Button title="Close Map" onPress={() => setIsMapModalOpen(false)} />
+            <Map location={location} initialRegion={initialRegion} style={{ flex: 1, height: "100%" }} />
+            <View style= {{alignItems: "center", paddingBottom: 30}}>
+            <ThemedButton type= "secondary" onPress={() => setIsMapModalOpen(false)} >Close Map</ThemedButton>
+            </View>
           </Modal>
           </SafeAreaView>
           {isLoading && (
