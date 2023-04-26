@@ -1,6 +1,8 @@
+//Can be expanded upon, currently not used
+
+
 import React from "react";
 import { View, Text, FlatList } from "react-native";
-import { useSelector } from "react-redux";
 
 export default function PlaceList({ route }) {
   const { places } = route.params;

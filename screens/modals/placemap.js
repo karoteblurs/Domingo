@@ -1,9 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions, Button } from 'react-native';
+import { StyleSheet, View, Dimensions } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { GOOGLE_API_KEY } from "../../environments"
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Constants from 'expo-constants';
+import ThemedButton from "react-native-really-awesome-button"
+import MapViewDirections from 'react-native-maps-directions';
 
 const { width, height } = Dimensions.get('window');
 
@@ -20,9 +22,8 @@ export default function PlaceMap({ item, onClose }) {
     longitudeDelta: LONGITUDE_DELTA,
   };
 
-  console.log("FUCKER",initialRegion)
-  console.log("BITCH", item.geometry.location.lat, item.geometry.location.lng)
-
+  const origin = { latitude: 41.4099868247673, longitude: 2.16569996439122 }; // replace with user's current location, make dynamic(see home)
+  const destination = { latitude: item.geometry.location.lat, longitude: item.geometry.location.lng };
 
   return (
     <View style={styles.container}>
@@ -33,6 +34,14 @@ export default function PlaceMap({ item, onClose }) {
           rating={item.rating}
           description={item.vicinity}
           icon={{uri: item.icon}}
+        />
+
+        <MapViewDirections
+          origin={origin}
+          destination={destination}
+          apikey={GOOGLE_API_KEY}
+          strokeWidth={3}
+          strokeColor="hotpink"
         />
       </MapView>
 
@@ -50,7 +59,7 @@ export default function PlaceMap({ item, onClose }) {
         />
       </View>
 
-      <Button title="Close" onPress={onClose} />
+      <ThemedButton type="secondary" onPress={onClose} style={styles.closeButton}>Close Map</ThemedButton>
     </View>
   );
 }
@@ -83,5 +92,11 @@ const styles = StyleSheet.create({
   input: {
     borderColor: '#888',
     borderWidth: 1,
+  },
+  closeButton: {
+    position: 'absolute',
+    bottom: 20,
+    width: '90%',
+    alignSelf: "flex-start"
   },
 });

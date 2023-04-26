@@ -3,7 +3,6 @@ import Home from "../screens/home";
 import Categorylist from "../screens/categorylist";
 import Entrydetails from "../screens/entrydetails";
 import RollingText from "react-native-rolling-text";
-import { View } from "react-native"
 
 const headerTitle = () => (
   //<View style={{ flex: 1, width: "80%", overflow: 'hidden', alignItems: "center"}}>
@@ -41,18 +40,5 @@ const AppNavigator = createStackNavigator({
     },
   },
 });
-// import { createStackNavigator } from '@react-navigation/stack';
-
-// const { Navigator, Screen} = createStackNavigator();
-
-// const AppNavigator = function () {
-//     return (
-//         <Navigator>
-//             <Screen name='Home' component={Home} />
-//             <Screen name='Categorylist' component={Categorylist} />
-//             <Screen name='Entrydetails' component={Entrydetails} />
-//         </Navigator>
-//     )
-// }
 
 export default AppNavigator;

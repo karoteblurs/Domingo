@@ -1,10 +1,12 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions, Button, ImageBackground, Image } from 'react-native';
+import { StyleSheet, View, Dimensions, Button } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { GOOGLE_API_KEY } from "../../environments"
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Constants from 'expo-constants';
 import { useSelector } from 'react-redux';
+
+
 
 const { width, height } = Dimensions.get('window');
 
@@ -45,7 +47,7 @@ export default function Map({ initialRegion, onClose, }) {
           styles={{ textInput: styles.input }}
           placeholder="Looking for something specific?"
           onPress={(data, details = null) => {
-            //console.log("MAPSTUFF", data, details);
+            //autocomplete to be finished
           }}
           query={{
             key: GOOGLE_API_KEY,

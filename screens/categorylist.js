@@ -12,7 +12,7 @@ import {
 import { useSelector } from "react-redux";
 import PlaceMap from "./modals/placemap";
 import { GOOGLE_API_KEY } from "../environments";
-import ThemedButton from "react-native-really-awesome-button";
+
 
 export default function Categorylist({ navigation }) {
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
