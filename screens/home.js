@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Modal, SafeAreaView, ActivityIndicator } from "react-native";
+import { View, Text, Modal, SafeAreaView, ActivityIndicator, ImageBackground } from "react-native";
 import Map from "./modals/map";
 import * as Location from 'expo-location';
 import { useDispatch } from 'react-redux';
@@ -55,6 +55,7 @@ export default function Home({ navigation, route }) {
           latitudeDelta: LATITUDE_DELTA,
           longitudeDelta: LONGITUDE_DELTA,
     });
+
     const types = ["restaurant", "bar", "supermarket", "pharmacy", "cafe",] //"store", "museum", "night_club","shopping_mall","shoe_store", "zoo", "gym", "drugstore", "convenience_store"]
     getPlacesData(location, types)
     .then(async (data) => {
@@ -88,30 +89,29 @@ export default function Home({ navigation, route }) {
     }, [location])
 
 
-
-    return ( 
-        <View style={{ flex: 1, backgroundColor: "rgb(144,238,144)", }}>
+    return (
+        <ImageBackground source={{ uri: 'https://wallpapercave.com/wp/wp8798204.png' }} style={{ flex: 1 }}>
           <View style={{ flex: 1 }}>
-            <Text style= {{textAlign: "center", fontSize: 24, fontWeight: "bold", marginBottom: 30,marginTop: 30}}>Search by Category</Text>
+            <Text style={{ color: "white", textAlign: "center", fontSize: 30, fontWeight: "bold", marginBottom: 20, marginTop: 30, }}>DOMINGO</Text>
             <View>
-              <PlaceTypesList navigation={navigation} route = {route} />
+              <PlaceTypesList navigation={navigation} route={route} />
             </View>
           </View>
-          <SafeAreaView style={{ position: "absolute", bottom: 0, width: "100%", alignItems: "center",}}>
-            <ThemedButton type= "secondary" onPress={() => setIsMapModalOpen(true)}>Search in the Map</ThemedButton>
-          <Modal visible={isMapModalOpen}>
-            <Map location={location} initialRegion={initialRegion} style={{ flex: 1, height: "100%" }} />
-            <View style= {{alignItems: "center", paddingBottom: 30}}>
-            <ThemedButton type= "secondary" onPress={() => setIsMapModalOpen(false)} >Close Map</ThemedButton>
-            </View>
-          </Modal>
+          <SafeAreaView style={{ position: "absolute", bottom: 0, width: "100%", alignItems: "center" }}>
+            <ThemedButton type="secondary" onPress={() => setIsMapModalOpen(true)}>Search in the Map</ThemedButton>
+            <Modal visible={isMapModalOpen}>
+              <Map location={location} initialRegion={initialRegion} style={{ flex: 1, height: "100%" }} />
+              <View style={{ alignItems: "center", paddingBottom: 30 }}>
+                <ThemedButton type="secondary" onPress={() => setIsMapModalOpen(false)}>Close Map</ThemedButton>
+              </View>
+            </Modal>
           </SafeAreaView>
           {isLoading && (
-      <View style={{ position: "absolute", top: 0, bottom: 0, left: 0, right: 0, backgroundColor: "rgba(255, 255, 255, 0.5)", justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" color="black" />
-        <Text style={{ marginTop: 10 }}>Finding places near you...</Text>
-      </View>
-    )}
-        </View>
+            <View style={{ position: "absolute", top: 0, bottom: 0, left: 0, right: 0, backgroundColor: "rgba(255, 255, 255, 0.5)", justifyContent: "center", alignItems: "center" }}>
+              <ActivityIndicator size="large" color="white" />
+              <Text style={{ color: "white", marginTop: 10 }}>Finding places near you...</Text>
+            </View>
+          )}
+        </ImageBackground>
       );
 }

@@ -2,9 +2,10 @@ import React, { useEffect, useState} from "react";
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from "react-native";
 import { useSelector } from 'react-redux';
 
-export default function PlaceTypesList({ navigation }) {
+export default function PlaceTypesList({ navigation, }) {
   const placeTypes = useSelector(state => state.placeTypes);
   const places = useSelector(state => state.places);
+  
 
   // Use a Set to keep track of unique place types
   const uniquePlaceTypes = new Set();
@@ -23,7 +24,7 @@ export default function PlaceTypesList({ navigation }) {
       const filteredPlaces = places.filter(place => {
         return place.types.includes(item)})
 
-        //console.log(filteredPlaces)
+       
     
     return (
       <View style={styles.itemContainer}>
@@ -31,7 +32,7 @@ export default function PlaceTypesList({ navigation }) {
         <TouchableOpacity
           style={styles.buttonContainer}
           activeOpacity={0.8}
-          onPress={() => navigation.navigate('Categorylist', { type: item })}
+          onPress={() => navigation.navigate('Categorylist', { type: item,})}
         >
           <Text style={styles.buttonText}>{`View ${filteredPlaces.length === 1 ? '1 Place' : `${filteredPlaces.length} Places`}`}</Text>
         </TouchableOpacity>
@@ -41,6 +42,7 @@ export default function PlaceTypesList({ navigation }) {
 
   return (
     <View style={{ height: '87%', overflow: 'scroll' }}>
+      
       <FlatList
         data={uniquePlaceTypesArray}
         renderItem={renderItem}

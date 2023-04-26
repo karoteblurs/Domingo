@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions, Button, ImageBackground, Image } from 'react-native';
+import { StyleSheet, View, Dimensions, Button } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { GOOGLE_API_KEY } from "../../environments"
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Constants from 'expo-constants';
-import { useSelector } from 'react-redux';
 
 const { width, height } = Dimensions.get('window');
 
@@ -12,32 +11,29 @@ const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = 0.02;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-export default function Map({ initialRegion, onClose, }) {
+export default function PlaceMap({ item, onClose }) {
+  console.log("fuck", item)
+  const initialRegion = {
+    latitude: item.geometry.location.lat,
+    longitude: item.geometry.location.lng,
+    latitudeDelta: LATITUDE_DELTA,
+    longitudeDelta: LONGITUDE_DELTA,
+  };
 
-  const places = useSelector(state => state.places);
-  const locations = places.map(place => place.geometry.location)
-  const photorefs = places.map(place => place.photo_reference)
-  
-  if (!initialRegion) {
-    return null;
-    //create a state for loading
-  }
+  console.log("FUCKER",initialRegion)
+  console.log("BITCH", item.geometry.location.lat, item.geometry.location.lng)
+
 
   return (
     <View style={styles.container}>
       <MapView style={styles.map} provider={PROVIDER_GOOGLE} initialRegion={initialRegion} showsUserLocation={true} userLocationAnnotationTitle='You are here' >
-        {locations.map((location, index) => (
-          <Marker
-          coordinate={{ latitude: location.lat, longitude: location.lng }}
-          title={places[index].name}
-          rating={places[index].rating}
-          description={places[index].vicinity}
-          icon={{uri: places[index].icon}}
-          
-          key={index}
-
-          />
-        ))}
+        <Marker
+          coordinate={{ latitude: item.geometry.location.lat, longitude: item.geometry.location.lng }}
+          title={item.name}
+          rating={item.rating}
+          description={item.vicinity}
+          icon={{uri: item.icon}}
+        />
       </MapView>
 
       <View style={styles.searchContainer}>
@@ -53,10 +49,8 @@ export default function Map({ initialRegion, onClose, }) {
           }}
         />
       </View>
-      <View style={{ flex: 1 }}>
-        <MapView style={{ flex: 1 }} initialRegion={initialRegion} />
-        <Button title="Close" onPress={onClose} />
-      </View>
+
+      <Button title="Close" onPress={onClose} />
     </View>
   );
 }

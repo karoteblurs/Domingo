@@ -20,7 +20,8 @@ const AppNavigator = createStackNavigator({
       headerTitle,
       headerStyle: {
         backgroundColor: "black"
-      }
+      },
+      
     },
   },
   Categorylist: {
@@ -28,8 +29,9 @@ const AppNavigator = createStackNavigator({
     navigationOptions: {
       headerTitle,
       headerStyle: {
-        backgroundColor: "black"
-       }
+        backgroundColor: "black", 
+       },
+       headerLeft: () => null
     },
   },
   Entrydetails: {
