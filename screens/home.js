@@ -49,14 +49,14 @@ export default function Home({ navigation, route }) {
     useEffect(() => {
       if (location) {
 
-    setInitialRegion ({
+        setInitialRegion({
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
           latitudeDelta: LATITUDE_DELTA,
           longitudeDelta: LONGITUDE_DELTA,
-    });
+        });
 
-    const types = ["restaurant", "bar", "supermarket", "pharmacy", "cafe",] //"store", "museum", "night_club","shopping_mall","shoe_store", "zoo", "gym", "drugstore", "convenience_store"]
+        const types = ["pharmacy"]//["restaurant", "bar", "supermarket", "pharmacy", "cafe",] //"store", "museum", "night_club","shopping_mall","shoe_store", "zoo", "gym", "drugstore", "convenience_store"]
     getPlacesData(location, types)
     .then(async (data) => {
 
@@ -71,9 +71,9 @@ export default function Home({ navigation, route }) {
                     place_id: place.place_id,
                     types: placeTypes,
                 })
-                //console.log("place id:", place.place_id, "place types:", placeTypes)
-                //console.log("placeTypes:", placeTypes); // Log placeTypes to check that it's being returned correctly
-                //console.log("types:", types); // Log types to check that it's being populated correctly
+                // console.log("place id:", place.place_id, "place types:", placeTypes)
+                // console.log("placeTypes:", placeTypes); // Log placeTypes to check that it's being returned correctly
+                // console.log("types:", types); // Log types to check that it's being populated correctly
             }
         }
     dispatch(setPlaces(places));
@@ -106,12 +106,12 @@ export default function Home({ navigation, route }) {
               </View>
             </Modal>
           </SafeAreaView>
-          {isLoading && (
-            <View style={{ position: "absolute", top: 0, bottom: 0, left: 0, right: 0, backgroundColor: "rgba(255, 255, 255, 0.5)", justifyContent: "center", alignItems: "center" }}>
+          {/* {isLoading && (
+            <View style={{ position: "absolute", top: 0, bottom: 0, left: 0, right: 0, backgroundColor: "rgba(100, 255, 255, 0.5)", justifyContent: "center", alignItems: "center" }}>
               <ActivityIndicator size="large" color="white" />
               <Text style={{ color: "white", marginTop: 10 }}>Finding places near you...</Text>
             </View>
-          )}
+          )} */}
         </ImageBackground>
       );
 }

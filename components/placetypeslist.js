@@ -10,9 +10,12 @@ export default function PlaceTypesList({ navigation, }) {
   // Use a Set to keep track of unique place types
   const uniquePlaceTypes = new Set();
 
+  console.log(uniquePlaceTypes)
+  
   placeTypes.forEach(place => {
     place.types.forEach(type => {
       uniquePlaceTypes.add(type);
+      // console.log(type)
     })
   });
 
